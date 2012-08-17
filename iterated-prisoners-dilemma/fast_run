@@ -1,0 +1,3 @@
+#!/bin/bash
+mvn compile
+java -cp target/iterated-prisoners-dilemma-1.0-SNAPSHOT.jar com.farawaylabs.ipd.IteratedPrisonersDilemma
