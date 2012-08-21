@@ -1,25 +1,59 @@
 package com.farawaylabs.ipd;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Tournament {
     ArrayList<Player> players;
+    Map<String, Float> scores;
     public static final int REWARD = 3;
     public static final int SUCKER = 0;
     public static final int TEMPTATION = 5;
     public static final int PUNISHMENT = 1;
     public Tournament(ArrayList<Player> players) {
         this.players = new ArrayList<Player>(players);
+        initializeScores();
     }
 
     public void play()  {
-        System.out.println("P1\tP2");
-
-        for(int i = 0; i < 2000; i++) {
-            playRound(0,1);
+        //System.out.println("P1\tP2");
+        for (int i = 0; i < players.size(); i++) {
+            int p1 = getRandomPlayer();
+            int p2 = getRandomPlayer();
+            for(int j = 0; j < 200; j++) {
+                playRound(p1,p2);
+            }
         }
         displayScores();
+    }
+
+    private int getRandomPlayer() {
+        float chosen = (float) Math.random();
+        float runningTotal = 0;
+        for (Player p : players) {
+            runningTotal += scores.get(p.getPlayerName());
+            if (runningTotal >= chosen) {
+                return players.indexOf(p);
+            }
+        }
+        return -1; // this is in place to maintain appearances..
+    }
+
+    private void initializeScores() {
+        scores = new HashMap<String, Float>();
+        float defaultScore = 1 / players.size();
+        for (Player p : players) {
+            scores.put(p.getPlayerName(), defaultScore);
+        }
+    }
+
+    private void updateScores() {
+        int totalScore = 0;
+        for (Player p : players) {
+            totalScore += p.getPoints();
+        }
+        for (Player p : players) {
+            scores.put(p.getPlayerName(), Float.valueOf(p.getPoints() / totalScore));
+        }
     }
 
     private void playRound(int p1, int p2) {
@@ -49,7 +83,7 @@ public class Tournament {
 
     private void displayScores() {
         for (int i = 0; i < players.size(); i++) {
-            System.out.println(players.get(i).getPlayerName() + ":  " + players.get(i).getPoints());
+            System.out.println(players.get(i).getPlayerName() + ":  " + scores.get(players.get(i).getPlayerName()));
         }
     }
 }
