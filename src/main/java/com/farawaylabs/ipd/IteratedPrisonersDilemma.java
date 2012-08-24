@@ -15,6 +15,7 @@ public class IteratedPrisonersDilemma {
         players.add(new Random());
         players.add(new Saint());
         players.add(new Demon());
+        players.add(new Griefer());
         Tournament t = new Tournament(players);
         t.play();
     }

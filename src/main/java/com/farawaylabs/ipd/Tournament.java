@@ -5,6 +5,8 @@ import java.util.*;
 public class Tournament {
     ArrayList<Player> players;
     Map<String, Float> scores;
+    private int roundsPerMatch= 2000000;
+    private int matchesPerCycle = 100;
     public static final int REWARD = 3;
     public static final int SUCKER = 0;
     public static final int TEMPTATION = 5;
@@ -15,16 +17,28 @@ public class Tournament {
     }
 
     public void play()  {
-        for (int i = 0; i < players.size() * 100; i++) {
+        for (int i = 0; i < players.size() ; i++) {
+            int p2 = getRandomPlayer();
+            for(int j = 0; j < getRoundsPerMatch(); j++) {
+                playRound(i,p2);
+
+            }
+            updateScores();
+        }
+        displayScores();
+    }
+
+    public void playRandom()  {
+        for (int i = 0; i < players.size() * getMatchesPerCycle(); i++) {
             int p1 = getRandomPlayer();
             int p2 = getRandomPlayer();
-            for(int j = 0; j < 200; j++) {
+            for(int j = 0; j < getRoundsPerMatch(); j++) {
                 playRound(p1,p2);
 
             }
             updateScores();
-            displayScores();
         }
+        displayScores();
     }
 
     private int getRandomPlayer() {
@@ -85,4 +99,21 @@ public class Tournament {
             System.out.println(players.get(i).getPlayerName() + ":  " + scores.get(players.get(i).getPlayerName()));
         }
     }
+
+    public void setRoundsPerMatch(int roundsPerMatch) {
+        this.roundsPerMatch = roundsPerMatch;
+    }
+
+    public int getRoundsPerMatch() {
+        return this.roundsPerMatch;
+    }
+
+    public void setMatchesPerCycle(int matchesPerCycle) {
+        this.matchesPerCycle = matchesPerCycle;
+    }
+
+    public int getMatchesPerCycle() {
+        return this.matchesPerCycle;
+    }
 }
+
