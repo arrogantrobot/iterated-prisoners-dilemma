@@ -15,8 +15,7 @@ public class Tournament {
     }
 
     public void play()  {
-        //System.out.println("P1\tP2");
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size() * 100; i++) {
             int p1 = getRandomPlayer();
             int p2 = getRandomPlayer();
             for(int j = 0; j < 200; j++) {
@@ -68,23 +67,20 @@ public class Tournament {
         if (player1 && player2)  {
             players.get(p1).incrementScore(REWARD);
             players.get(p2).incrementScore(REWARD);
-            //System.out.println("Cooperated");
         } else if (!player1 && !player2) {
             players.get(p1).incrementScore(PUNISHMENT);
             players.get(p2).incrementScore(PUNISHMENT);
-            //System.out.println("Dual defection");
         } else if (player1) {
             players.get(p1).incrementScore(SUCKER);
             players.get(p2).incrementScore(TEMPTATION);
-            //System.out.println(players.get(p1).getPlayerName()+" was the sucker.");
         } else {
             players.get(p1).incrementScore(TEMPTATION);
             players.get(p2).incrementScore(SUCKER);
-            //System.out.println(players.get(p2).getPlayerName()+" was the sucker.");
         }
     }
 
     private void displayScores() {
+        System.out.println("\n\n================\n\n");
         for (int i = 0; i < players.size(); i++) {
             System.out.println(players.get(i).getPlayerName() + ":  " + scores.get(players.get(i).getPlayerName()));
         }

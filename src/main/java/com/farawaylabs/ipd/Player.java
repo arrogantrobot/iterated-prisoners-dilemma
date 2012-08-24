@@ -2,6 +2,7 @@ package com.farawaylabs.ipd;
 
 public class Player implements Strategy {
     int points;
+
     public Player() {
         this.points = 0;
     }
@@ -13,6 +14,9 @@ public class Player implements Strategy {
     }
     public void decrementScore(int points) {
         this.points -= points;
+    }
+    public void zeroOutPoints() {
+        this.points = 0;
     }
 
     @Override
