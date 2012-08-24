@@ -21,9 +21,11 @@ public class Tournament {
             int p2 = getRandomPlayer();
             for(int j = 0; j < 200; j++) {
                 playRound(p1,p2);
+
             }
+            updateScores();
+            displayScores();
         }
-        displayScores();
     }
 
     private int getRandomPlayer() {
@@ -40,9 +42,10 @@ public class Tournament {
 
     private void initializeScores() {
         scores = new HashMap<String, Float>();
-        float defaultScore = 1 / players.size();
+        float defaultScore = (float)1 / (float)players.size();
         for (Player p : players) {
             scores.put(p.getPlayerName(), defaultScore);
+            System.out.println(p.getPlayerName() + ": " + Float.valueOf((float)defaultScore).toString());
         }
     }
 
@@ -52,7 +55,7 @@ public class Tournament {
             totalScore += p.getPoints();
         }
         for (Player p : players) {
-            scores.put(p.getPlayerName(), Float.valueOf(p.getPoints() / totalScore));
+            scores.put(p.getPlayerName(), Float.valueOf((float)p.getPoints() / (float)totalScore));
         }
     }
 
