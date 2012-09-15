@@ -62,7 +62,7 @@ public class Tournament {
         }
     }
 
-    private void updateScores() {
+    protected void updateScores() {
         int totalScore = 0;
         for (Player p : players) {
             totalScore += p.getPoints();
@@ -72,7 +72,7 @@ public class Tournament {
         }
     }
 
-    private void playRound(int p1, int p2) {
+    protected void playRound(int p1, int p2) {
         boolean player1 = players.get(p1).getPlay();
         boolean player2 = players.get(p2).getPlay();
         players.get(p1).result(player2);
@@ -93,7 +93,7 @@ public class Tournament {
         }
     }
 
-    private void displayScores() {
+    protected void displayScores() {
         System.out.println("\n\n================\n\n");
         for (int i = 0; i < players.size(); i++) {
             System.out.println(players.get(i).getPlayerName() + ":  " + scores.get(players.get(i).getPlayerName()));
